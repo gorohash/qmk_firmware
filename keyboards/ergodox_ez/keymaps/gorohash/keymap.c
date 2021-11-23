@@ -5,6 +5,7 @@ enum layers {
     BASE,  // default layer
     SYMB,  // symbols
     MDIA,  // media keys
+    ARRW,  // arrows
 };
 
 enum custom_keycodes {
@@ -20,34 +21,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   `    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|' / Cmd |
+ * | LShift |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|'/RShift|
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * | LGui   |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RGui   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   |  L1  | Ctrl |  Alt |  L2  |  L3  |                                       | Left | Right|   [  |   ]  |   \  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
+ *                                        | Del  | LGui |       | Alt  |Ctrl/Esc|
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 |      |      | PgUp |       |  Up  |        |      |
  *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 |      |ace   | PgDn |       | Down |        |      |
  *                                 `--------------------'       `----------------------'
  */
 [BASE] = LAYOUT_ergodox_pretty(
   // left hand
-  KC_EQL,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,              KC_RGHT,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           KC_MINS,
-  KC_DEL,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),             TG(SYMB),     KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           KC_BSLS,
-  KC_BSPC,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), GUI_T(KC_QUOT),
-  KC_LSFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),                  MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,           CTL_T(KC_SLSH), KC_RSFT,
-  LT(SYMB,KC_GRV), KC_QUOT,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,                                              KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, TT(SYMB),
-                                                           ALT_T(KC_APP), KC_LGUI,                KC_LALT, CTL_T(KC_ESC),
-                                                                          KC_HOME,                 KC_PGUP,
-                                                         KC_SPC, KC_BSPC, KC_END,                  KC_PGDN, KC_TAB, KC_ENT
+  KC_GRV,   KC_1,    KC_2,    KC_3,     KC_4,     KC_5,    KC_LEFT,              KC_RGHT,      KC_6,           KC_7,     KC_8,    KC_9,    KC_0,              KC_MINS,
+  KC_TAB,   KC_Q,    KC_W,    KC_E,     KC_R,     KC_T,    TG(SYMB),             TG(MDIA),     KC_Y,           KC_U,     KC_I,    KC_O,    KC_P,              KC_EQL,
+  KC_LSFT,  KC_A,    KC_S,    KC_D,     KC_F,     KC_G,                                        KC_H,           KC_J,     KC_K,    KC_L,    LT(MDIA, KC_SCLN), RSFT_T(KC_QUOT),
+  KC_LGUI,  KC_Z,    KC_X,    KC_C,     KC_V,     KC_B,    ALL_T(KC_NO),         MEH_T(KC_NO), KC_N,           KC_M,     KC_COMM, KC_DOT,  RCTL_T(KC_SLSH),   KC_RGUI,
+  TG(SYMB), KC_LCTL, KC_LALT, TG(MDIA), TG(ARRW),                                              KC_LEFT,        KC_RIGHT, KC_LBRC, KC_RBRC, KC_BSLS,
+                                                  KC_DEL,  KC_LGUI,              KC_RALT,      RCTL_T(KC_ESC),
+                                                           KC_PGUP,              KC_UP,
+                                        KC_SPC,   KC_BSPC, KC_PGDN,              KC_DOWN,      KC_TAB,         KC_ENT
 ),
 /* Keymap 1: Symbol Layer
  *
